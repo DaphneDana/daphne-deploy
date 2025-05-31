@@ -93,14 +93,15 @@ const ProjectsPage: React.FC = () => {
     <div className="min-h-screen" style={{
       background: 'linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1a2e 100%)'
     }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Main Container with Better Centering */}
+      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 py-12">
         
         {/* Page Header */}
         <div className="text-center mb-12 animate-fade-in-up">
           <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             Our Projects
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Explore our portfolio of AI & ML innovations. From completed solutions to exciting upcoming ventures, 
             discover how we're transforming industries through cutting-edge technology.
           </p>
@@ -109,7 +110,7 @@ const ProjectsPage: React.FC = () => {
         {/* Filters Section */}
         <div className="mb-12 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
           <div 
-            className="rounded-2xl p-6 border"
+            className="rounded-2xl p-6 border max-w-6xl mx-auto"
             style={{
               background: 'rgba(26, 35, 50, 0.8)',
               backdropFilter: 'blur(10px)',
@@ -136,11 +137,11 @@ const ProjectsPage: React.FC = () => {
 
             {/* Status Filters */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center justify-center">
                 <Filter className="w-5 h-5 mr-2 text-blue-400" />
                 Project Status
               </h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 justify-center">
                 <button
                   onClick={() => setActiveStatus('all')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
@@ -174,8 +175,8 @@ const ProjectsPage: React.FC = () => {
 
             {/* Tag Filters */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-4">Technology Tags</h3>
-              <div className="flex flex-wrap gap-2">
+              <h3 className="text-lg font-semibold text-white mb-4 text-center">Technology Tags</h3>
+              <div className="flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
                 {projectTags.map(tag => (
                   <button
                     key={tag.id}
@@ -211,7 +212,7 @@ const ProjectsPage: React.FC = () => {
         {(searchQuery || activeStatus !== 'all' || activeTags.length > 0) && (
           <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
             <div 
-              className="rounded-xl p-4 border"
+              className="rounded-xl p-4 border max-w-2xl mx-auto"
               style={{
                 background: 'rgba(26, 35, 50, 0.6)',
                 borderColor: 'rgba(64, 150, 255, 0.2)'
@@ -243,7 +244,7 @@ const ProjectsPage: React.FC = () => {
                   className="animate-fade-in-up"
                   style={{ animationDelay: `${600 + statusIndex * 200}ms` }}
                 >
-                  <div className="flex items-center mb-8">
+                  <div className="flex items-center justify-center mb-8">
                     <div className={`p-3 rounded-xl ${statusInfo.bgColor} border ${statusInfo.borderColor} mr-4`}>
                       <statusInfo.icon className={`w-6 h-6 ${statusInfo.color}`} />
                     </div>
@@ -291,7 +292,7 @@ const ProjectsPage: React.FC = () => {
         {/* Call to Action */}
         <div className="mt-20 text-center animate-fade-in-up" style={{ animationDelay: '800ms' }}>
           <div 
-            className="rounded-2xl p-8 border"
+            className="rounded-2xl p-8 border max-w-4xl mx-auto"
             style={{
               background: 'rgba(26, 35, 50, 0.6)',
               borderColor: 'rgba(64, 150, 255, 0.2)'
@@ -316,22 +317,25 @@ const ProjectsPage: React.FC = () => {
   );
 };
 
-// Project Grid Component
+// Project Grid Component with Better Responsive Layout
 const ProjectGrid: React.FC<{ projects: Project[] }> = ({ projects }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {projects.map((project, index) => (
-        <ProjectCard 
-          key={project.id} 
-          project={project} 
-          animationDelay={index * 100}
-        />
-      ))}
+    <div className="w-full max-w-7xl mx-auto">
+      {/* Responsive Grid with Better Centering */}
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 justify-items-center">
+        {projects.map((project, index) => (
+          <ProjectCard 
+            key={project.id} 
+            project={project} 
+            animationDelay={index * 100}
+          />
+        ))}
+      </div>
     </div>
   );
 };
 
-// Project Card Component
+// Project Card Component with Improved Layout
 const ProjectCard: React.FC<{ project: Project; animationDelay?: number }> = ({ 
   project, 
   animationDelay = 0 
@@ -352,7 +356,7 @@ const ProjectCard: React.FC<{ project: Project; animationDelay?: number }> = ({
   return (
     <Link 
       to={`/projects/${project.id}`}
-      className="block rounded-2xl border hover:border-blue-400/40 transition-all duration-300 hover:transform hover:-translate-y-2 overflow-hidden group animate-fade-in-up"
+      className="block w-full max-w-sm rounded-2xl border hover:border-blue-400/40 transition-all duration-300 hover:transform hover:-translate-y-2 overflow-hidden group animate-fade-in-up"
       style={{
         background: 'rgba(26, 35, 50, 0.7)',
         borderColor: 'rgba(64, 150, 255, 0.25)',
