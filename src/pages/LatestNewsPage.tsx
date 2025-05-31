@@ -7,12 +7,9 @@ import FeaturedNewsCard from '../components/news/FeaturedNewsCard';
 import NewsCard from '../components/news/NewsCard';
 import { ListFilter, ArrowDownUp, Search } from 'lucide-react';
 
-
-
 const CONTENT_TYPES: NewsContentType[] = ['Update', 'Press Release', 'Activity Report', 'Event'];
 
 const LatestNewsPage: React.FC = () => {
-  // ... (all your existing state and logic: allNews, filteredNews, selectedContentType, searchTerm, sortBy, etc.)
   const [allNews] = useState<NewsItem[]>(() => 
     [...mockNewsData].sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime())
   );
@@ -53,27 +50,27 @@ const LatestNewsPage: React.FC = () => {
 
   return (
     <div className="bg-dark-bg text-text-main-dark min-h-screen">
-      {/* Page Header - This section spans full width for its background/border */}
+      {/* Page Header - Full width for background/border */}
       <div className="py-16 md:py-20 text-center border-b border-slate-700">
-        {/* Content within Page Header is constrained */}
-        <div className="container-mx">
+        {/* Centered header content */}
+        <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-primary uppercase tracking-wider animate-fade-in-up">
             Latest News
           </h1>
-          <p className="mt-4 text-lg max-w-2xl mx-auto text-text-muted-dark animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <p className="mt-4 text-lg max-w-3xl mx-auto text-text-muted-dark animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Stay updated with the latest announcements, activities, and insights from LLP and our members.
           </p>
         </div>
       </div>
 
-      {/* Main content area that needs container for side spacing */}
-      {/* This div will now wrap all content below the header section */}
-      <div className="container-mx py-12 md:py-16">
+      {/* Main content area with better centering */}
+      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16">
+        
         {/* Featured Section */}
         {featuredNewsItems.length > 0 && selectedContentType === 'All' && searchTerm === '' && (
           <section className="mb-12 md:mb-16">
             <h2 className="text-3xl font-bold text-text-main-dark mb-8 text-center sm:text-left">Featured News</h2>
-            <div className="grid gap-8">
+            <div className="grid gap-8 max-w-6xl mx-auto">
               {featuredNewsItems.map(item => (
                 <FeaturedNewsCard key={item.id} item={item} />
               ))}
@@ -82,10 +79,9 @@ const LatestNewsPage: React.FC = () => {
         )}
 
         {/* Filters and Sorting Controls */}
-        {/* This section was already within the container-mx if the structure above is followed.
-            Its internal bg-card-dark-bg will make it look like a distinct panel. */}
-        <section className="mb-8 p-4 sm:p-6 bg-card-dark-bg rounded-lg shadow-md">
+        <section className="mb-8 p-4 sm:p-6 bg-card-dark-bg rounded-lg shadow-md max-w-5xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-end">
+            
             {/* Search Input */}
             <div className="sm:col-span-2 md:col-span-1">
               <label htmlFor="search-news" className="block text-sm font-medium text-text-muted-dark mb-1">
@@ -103,6 +99,7 @@ const LatestNewsPage: React.FC = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
               </div>
             </div>
+            
             {/* Filter by Type */}
             <div>
               <label htmlFor="filter-type" className="block text-sm font-medium text-text-muted-dark mb-1">
@@ -123,6 +120,7 @@ const LatestNewsPage: React.FC = () => {
                 <ListFilter className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500 pointer-events-none" />
               </div>
             </div>
+            
             {/* Sort By */}
             <div>
               <label htmlFor="sort-by" className="block text-sm font-medium text-text-muted-dark mb-1">
@@ -147,20 +145,23 @@ const LatestNewsPage: React.FC = () => {
 
         {/* News Grid */}
         {nonFeaturedNewsItems.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {nonFeaturedNewsItems.map(item => (
-              <NewsCard key={item.id} item={item} />
-            ))}
+          <div className="w-full max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 justify-items-center">
+              {nonFeaturedNewsItems.map(item => (
+                <NewsCard key={item.id} item={item} />
+              ))}
+            </div>
           </div>
         ) : (
-          <div className="text-center py-12">
-            {/* ... (no results content) ... */}
-            <img src="/src/assets/react.svg" alt="No results" className="mx-auto h-24 w-24 text-slate-600 opacity-50 mb-4" />
-            <p className="text-xl text-text-muted-dark">No news items match your current filters.</p>
-            <p className="text-sm text-slate-500 mt-2">Try adjusting your search or filter criteria.</p>
+          <div className="text-center py-12 max-w-md mx-auto">
+            <div className="bg-card-dark-bg rounded-lg p-8 shadow-md">
+              <div className="text-6xl mb-4">📰</div>
+              <p className="text-xl text-text-muted-dark mb-2">No news items match your current filters.</p>
+              <p className="text-sm text-slate-500">Try adjusting your search or filter criteria.</p>
+            </div>
           </div>
         )}
-      </div> {/* End of main container-mx */}
+      </div>
     </div>
   );
 };
