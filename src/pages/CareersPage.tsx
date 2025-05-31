@@ -1,11 +1,13 @@
 // src/pages/CareersPage.tsx
-import React, { useRef, useState } from 'react';;
+import React, { useRef, useState } from 'react';
 import CareersHeroSection from '../components/careers/CareersHeroSection';
 import OpenRolesSection from '../components/careers/OpenRolesSection';
 import LeadershipMessageSection from '../components/careers/LeadershipMessageSection';
 import ApplicationProcedureSection from '../components/careers/ApplicationProcedureSection';
 import JobApplicationFormSection from '../components/careers/JobApplicationFormSection';
 import CareersCTASection from '../components/careers/CareersCTASection';
+// import Footer from '../components/common/Footer'; // Import the footer component
+
 import { mockJobRoles, mockLeadershipMessage, mockApplicationSteps } from '../assets/data/careersData';
 import type { JobRole } from '../types/careers';
 
@@ -61,7 +63,8 @@ const CareersPage: React.FC = () => {
       {/* CTA Section */}
       <CareersCTASection id="careers-contact" />
       
-     
+      {/* Footer
+      <Footer /> */}
     </div>
   );
 };

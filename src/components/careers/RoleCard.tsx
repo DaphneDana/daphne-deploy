@@ -1,6 +1,5 @@
 // src/components/careers/RoleCard.tsx
 import React from 'react';
-import { motion } from 'framer-motion';
 import type { JobRole } from '../../types/careers';
 import { MapPin, Briefcase, ArrowRight, ExternalLink } from 'lucide-react';
 
@@ -11,20 +10,13 @@ interface RoleCardProps {
 
 const RoleCard: React.FC<RoleCardProps> = ({ role, onApplyClick }) => {
   return (
-    <motion.div
-      className="w-full rounded-2xl shadow-lg border transition-all duration-300 overflow-hidden group hover:-translate-y-2"
+    <div
+      className="w-full rounded-2xl shadow-lg border transition-all duration-300 overflow-hidden group hover:-translate-y-2 hover:border-blue-400/40"
       style={{
         background: 'rgba(26, 35, 50, 0.7)',
         borderColor: 'rgba(64, 150, 255, 0.25)',
         backdropFilter: 'blur(10px)'
       }}
-      whileHover={{ 
-        borderColor: 'rgba(64, 150, 255, 0.4)',
-        boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
-      }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
     >
       {/* Header */}
       <div className="p-6 pb-4">
@@ -76,7 +68,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ role, onApplyClick }) => {
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

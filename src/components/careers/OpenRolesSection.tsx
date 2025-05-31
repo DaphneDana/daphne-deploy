@@ -1,6 +1,5 @@
 // src/components/careers/OpenRolesSection.tsx
 import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import type { JobRole } from '../../types/careers';
 import RoleCard from './RoleCard';
 import { Filter, ChevronDown } from 'lucide-react';
@@ -35,18 +34,6 @@ const OpenRolesSection: React.FC<OpenRolesSectionProps> = ({ roles, onApplyClick
       (filterExperience === 'All' || role.experienceLevel === filterExperience)
     );
   }, [roles, filterDepartment, filterLocation, filterExperience]);
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.4,
-      },
-    }),
-  };
   
   const FilterDropdown: React.FC<{
     label: string;
@@ -66,7 +53,7 @@ const OpenRolesSection: React.FC<OpenRolesSectionProps> = ({ roles, onApplyClick
             borderColor: 'rgba(64, 150, 255, 0.3)'
           }}
         >
-          <option value="All">All {label.replace("Filter by ","")}</option>
+          <option value="All">All {label}</option>
           {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
         </select>
         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
@@ -82,7 +69,7 @@ const OpenRolesSection: React.FC<OpenRolesSectionProps> = ({ roles, onApplyClick
         background: 'linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1a2e 100%)'
       }}
     >
-      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center mb-12 max-w-3xl mx-auto">
@@ -96,10 +83,10 @@ const OpenRolesSection: React.FC<OpenRolesSectionProps> = ({ roles, onApplyClick
         <div className="mb-12 max-w-4xl mx-auto">
           <button 
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center text-blue-400 hover:text-blue-300 font-medium mb-4 py-3 px-6 rounded-lg transition-all duration-300 group"
+            className="flex items-center text-blue-400 hover:text-blue-300 font-medium mb-4 py-3 px-6 rounded-lg transition-all duration-300"
             style={{
               background: 'rgba(26, 35, 50, 0.7)',
-              borderColor: 'rgba(64, 150, 255, 0.2)'
+              border: '1px solid rgba(64, 150, 255, 0.2)'
             }}
           >
             <Filter size={18} className="mr-2" />
@@ -107,82 +94,55 @@ const OpenRolesSection: React.FC<OpenRolesSectionProps> = ({ roles, onApplyClick
             <ChevronDown size={20} className={`ml-2 transition-transform duration-300 ${showFilters ? 'rotate-180' : ''}`} />
           </button>
           
-          <AnimatePresence>
-            {showFilters && (
-              <motion.div
-                initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                animate={{ height: 'auto', opacity: 1, marginTop: '1rem' }}
-                exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden rounded-xl p-6 shadow-xl"
-                style={{
-                  background: 'rgba(26, 35, 50, 0.8)',
-                  backdropFilter: 'blur(10px)',
-                  borderColor: 'rgba(64, 150, 255, 0.3)'
-                }}
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                  <FilterDropdown label="Department" options={DEPARTMENTS} value={filterDepartment} onChange={setFilterDepartment} />
-                  <FilterDropdown label="Location" options={LOCATIONS} value={filterLocation} onChange={setFilterLocation} />
-                  <FilterDropdown label="Experience Level" options={EXPERIENCE_LEVELS} value={filterExperience} onChange={setFilterExperience} />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {showFilters && (
+            <div
+              className="rounded-xl p-6 shadow-xl mt-4 animate-fade-in-up"
+              style={{
+                background: 'rgba(26, 35, 50, 0.8)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(64, 150, 255, 0.3)'
+              }}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <FilterDropdown label="Department" options={DEPARTMENTS} value={filterDepartment} onChange={setFilterDepartment} />
+                <FilterDropdown label="Location" options={LOCATIONS} value={filterLocation} onChange={setFilterLocation} />
+                <FilterDropdown label="Experience Level" options={EXPERIENCE_LEVELS} value={filterExperience} onChange={setFilterExperience} />
+              </div>
+            </div>
+          )}
         </div>
         
         {/* Roles Grid */}
         <div className="w-full max-w-6xl mx-auto">
-          <AnimatePresence mode="wait">
-            {filteredRoles.length > 0 ? (
-              <motion.div 
-                key="roles-grid"
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 justify-items-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {filteredRoles.map((role, index) => (
-                  <motion.div 
-                    key={role.id}
-                    custom={index} 
-                    variants={cardVariants} 
-                    initial="hidden" 
-                    animate="visible" 
-                    exit="hidden"
-                    layout
-                    className="w-full max-w-sm"
-                  >
-                    <RoleCard role={role} onApplyClick={onApplyClick} />
-                  </motion.div>
-                ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="no-roles"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.3 }}
-                className="text-center py-16 max-w-md mx-auto"
-              >
+          {filteredRoles.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 justify-items-center">
+              {filteredRoles.map((role, index) => (
                 <div 
-                  className="rounded-2xl p-8 border"
-                  style={{
-                    background: 'rgba(26, 35, 50, 0.7)',
-                    borderColor: 'rgba(64, 150, 255, 0.25)'
-                  }}
+                  key={role.id}
+                  className="w-full max-w-sm animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="text-6xl mb-4">🔍</div>
-                  <h3 className="text-xl font-semibold text-blue-300 mb-2">No Matching Roles</h3>
-                  <p className="text-gray-400">
-                    No open positions match your current filters. Please check back later or adjust your criteria.
-                  </p>
+                  <RoleCard role={role} onApplyClick={onApplyClick} />
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 max-w-md mx-auto">
+              <div 
+                className="rounded-2xl p-8 animate-fade-in-up"
+                style={{
+                  background: 'rgba(26, 35, 50, 0.7)',
+                  border: '1px solid rgba(64, 150, 255, 0.25)'
+                }}
+              >
+                <div className="text-6xl mb-4">🔍</div>
+                <h3 className="text-xl font-semibold text-blue-300 mb-2">No Matching Roles</h3>
+                <p className="text-gray-400">
+                  No open positions match your current filters. Please check back later or adjust your criteria.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
