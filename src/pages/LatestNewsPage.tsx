@@ -49,7 +49,9 @@ const LatestNewsPage: React.FC = () => {
   }, [selectedContentType, searchTerm, sortBy, allNews]);
 
   return (
-    <div className="bg-dark-bg text-text-main-dark min-h-screen">
+    <div className="min-h-screen" style={{
+      background: 'linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1a2e 100%)'
+    }}>
       {/* Page Header - Full width for background/border */}
       <div className="py-16 md:py-20 text-center border-b border-slate-700">
         {/* Centered header content */}
@@ -79,7 +81,11 @@ const LatestNewsPage: React.FC = () => {
         )}
 
         {/* Filters and Sorting Controls */}
-        <section className="mb-8 p-4 sm:p-6 bg-card-dark-bg rounded-lg shadow-md max-w-5xl mx-auto">
+        <section className="mb-8 p-4 sm:p-6 rounded-lg shadow-md max-w-5xl mx-auto" style={{
+          background: 'rgba(26, 35, 50, 0.8)',
+          backdropFilter: 'blur(10px)',
+          borderColor: 'rgba(64, 150, 255, 0.3)'
+        }}>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-end">
             
             {/* Search Input */}
@@ -94,7 +100,11 @@ const LatestNewsPage: React.FC = () => {
                   placeholder="Keywords, title..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2.5 rounded-md bg-input-dark-bg border border-slate-600 text-text-main-dark placeholder-slate-500 focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
+                  className="w-full pl-10 pr-3 py-2.5 rounded-md border text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{
+                    background: 'rgba(51, 65, 85, 0.8)',
+                    borderColor: 'rgba(64, 150, 255, 0.3)'
+                  }}
                 />
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
               </div>
@@ -110,7 +120,11 @@ const LatestNewsPage: React.FC = () => {
                   id="filter-type"
                   value={selectedContentType}
                   onChange={(e) => setSelectedContentType(e.target.value as NewsContentType | 'All')}
-                  className="w-full appearance-none pl-3 pr-10 py-2.5 rounded-md bg-input-dark-bg border border-slate-600 text-text-main-dark focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
+                  className="w-full appearance-none pl-3 pr-10 py-2.5 rounded-md border text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{
+                    background: 'rgba(51, 65, 85, 0.8)',
+                    borderColor: 'rgba(64, 150, 255, 0.3)'
+                  }}
                 >
                   <option value="All">All Types</option>
                   {CONTENT_TYPES.map(type => (
@@ -131,7 +145,11 @@ const LatestNewsPage: React.FC = () => {
                   id="sort-by"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as 'dateDesc' | 'dateAsc' | 'titleAsc')}
-                  className="w-full appearance-none pl-3 pr-10 py-2.5 rounded-md bg-input-dark-bg border border-slate-600 text-text-main-dark focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"
+                  className="w-full appearance-none pl-3 pr-10 py-2.5 rounded-md border text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{
+                    background: 'rgba(51, 65, 85, 0.8)',
+                    borderColor: 'rgba(64, 150, 255, 0.3)'
+                  }}
                 >
                   <option value="dateDesc">Most Recent</option>
                   <option value="dateAsc">Oldest First</option>
@@ -154,10 +172,13 @@ const LatestNewsPage: React.FC = () => {
           </div>
         ) : (
           <div className="text-center py-12 max-w-md mx-auto">
-            <div className="bg-card-dark-bg rounded-lg p-8 shadow-md">
+            <div className="rounded-lg p-8 shadow-md" style={{
+              background: 'rgba(26, 35, 50, 0.7)',
+              borderColor: 'rgba(64, 150, 255, 0.25)'
+            }}>
               <div className="text-6xl mb-4">📰</div>
-              <p className="text-xl text-text-muted-dark mb-2">No news items match your current filters.</p>
-              <p className="text-sm text-slate-500">Try adjusting your search or filter criteria.</p>
+              <p className="text-xl text-gray-300 mb-2">No news items match your current filters.</p>
+              <p className="text-sm text-gray-500">Try adjusting your search or filter criteria.</p>
             </div>
           </div>
         )}
