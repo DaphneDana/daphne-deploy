@@ -14,6 +14,7 @@ import MemberCompaniesPage from './pages/MemberCompaniesPage';
 import MemberCompanyDetailPage from './pages/MemberCompanyDetailPage';
 import CareersPage from './pages/CareersPage';
 import CompanyProfilePage from './pages/CompanyProfilePage'; 
+import TechnologyPage from './pages/TechnologyPage';
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
             {/* Member Companies Routes */}
             <Route path="/member-companies" element={<MemberCompaniesPage />} />
             <Route path="/member-companies/:slug" element={<MemberCompanyDetailPage />} />
+
+             {/* Technology Routes */}
+            <Route path="/technology" element={<TechnologyPage />} />
+            <Route path="/technology/:slug" element={<TechnologyPage />} />
 
             {/* Careers Page Route */}
             <Route path="/careers" element={<CareersPage />} />
