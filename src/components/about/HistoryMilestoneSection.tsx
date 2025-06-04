@@ -1,66 +1,75 @@
-// src/components/about/HistoryMilestoneItem.tsx
+
+// src/components/about/HistorySection.tsx - IMPROVED
 import React from 'react';
 import { motion } from 'framer-motion';
-import type { HistoryMilestone } from '../../types/aboutUs'; // Adjust path
+import {  Clock } from 'lucide-react';
+import HistoryMilestoneItem from './HistroyMilestoneItem';
+import type { AboutUsPageData } from '../../types/aboutUs';
 
-interface HistoryMilestoneItemProps {
-  milestone: HistoryMilestone;
-  index: number; // For alternating layout and animation delay
+interface HistorySectionProps {
+  history: AboutUsPageData['history'];
 }
 
-const HistoryMilestoneItem: React.FC<HistoryMilestoneItemProps> = ({ milestone, index }) => {
-  const isEven = index % 2 === 0;
+const HistorySection: React.FC<HistorySectionProps> = ({ history }) => {
+  const IconComponent = history.iconName === 'History' ? Clock : Clock; // Using Clock as History might not exist
 
   return (
-    <motion.div
-      className={`mb-8 md:mb-0 flex md:items-center w-full ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'}`}
-      initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
+    <section 
+      className="py-16 md:py-24 relative"
+      style={{
+        background: 'linear-gradient(135deg, #0f1a2e 0%, #1a2332 50%, #0a0f1c 100%)'
+      }}
     >
-      {/* Spacer for desktop timeline alignment */}
-      <div className="hidden md:block md:w-5/12"></div>
-      {/* Timeline Dot for desktop */}
-      <div className="hidden md:block relative md:w-2/12">
-        <div className="absolute left-1/2 top-1/2 w-6 h-6 bg-primary rounded-full border-4 border-dark-bg transform -translate-x-1/2 -translate-y-1/2 shadow-md z-10">
-          <div className="w-2.5 h-2.5 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-        </div>
-      </div>
-      {/* Content Card */}
-      <div 
-        className={`bg-card-dark-bg p-5 md:p-6 rounded-xl shadow-xl md:w-5/12 w-full relative 
-                    border-l-4 md:border-l-0 md:border-transparent border-primary 
-                    md:after:hidden 
-                    ${isEven ? 'md:text-left' : 'md:text-left'} 
-                    after:content-[''] after:absolute after:top-1/2 after:-left-[calc(1.25rem+2px)] md:after:-left-[calc(0.625rem+2px)] 
-                    after:w-0 after:h-0 
-                    after:border-t-[10px] after:border-t-transparent 
-                    after:border-r-[10px] after:border-r-primary 
-                    after:border-b-[10px] after:border-b-transparent
-                    after:-translate-y-1/2`}
-        // The arrow pointer logic for mobile needs to be on the left.
-        // For desktop, it might need adjustment based on isEven if you want arrows pointing to the central line.
-        // For simplicity, the arrow is always on the left for mobile and hidden for desktop where the dot is central.
-      >
-        {/* Mobile specific marker (dot and line) */}
-        <div className="md:hidden absolute -left-[calc(1.25rem+2px)] top-0 h-full"> {/* p-5 is 1.25rem */}
-            <div className="absolute left-0 top-7 w-6 h-6 bg-primary rounded-full border-4 border-dark-bg flex items-center justify-center shadow-md z-10">
-                <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-            </div>
-            {/* Line below dot on mobile, only if not the last item */}
-            {/* This vertical line connecting is better handled by the parent if it's a continuous line */}
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="flex items-center justify-center mb-6">
+            <IconComponent size={48} className="text-blue-400 mr-4" />
+            <h2 
+              className="text-4xl md:text-5xl font-bold"
+              style={{
+                background: 'linear-gradient(135deg, #4096ff, #52c4ff)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
+              {history.title}
+            </h2>
+          </div>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            {history.subtitle}
+          </p>
+        </motion.div>
 
-        <h3 className="text-lg md:text-xl font-semibold text-primary mb-1">
-          {milestone.year} - {milestone.event}
-        </h3>
-        {milestone.description && (
-          <p className="text-sm text-text-muted-dark leading-relaxed">{milestone.description}</p>
-        )}
+        {/* Timeline Container */}
+        <div className="relative">
+          {/* Desktop Timeline Line */}
+          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-blue-500 to-cyan-500"></div>
+          
+          {/* Mobile Timeline Line */}
+          <div className="md:hidden absolute left-6 top-0 w-0.5 h-full bg-gradient-to-b from-blue-500 to-cyan-500"></div>
+
+          {/* Timeline Items */}
+          <div className="space-y-8 md:space-y-12">
+            {history.milestones.map((milestone, index) => (
+              <HistoryMilestoneItem 
+                key={index} 
+                milestone={milestone} 
+                index={index} 
+              />
+            ))}
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </section>
   );
 };
 
-export default HistoryMilestoneItem;
+export default HistorySection;

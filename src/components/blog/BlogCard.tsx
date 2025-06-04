@@ -1,9 +1,12 @@
-// src/components/blog/BlogCard.tsx
+// src/components/blog/BlogCard.tsx (Updated with proper routing)
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Calendar, Clock, User, Eye } from 'lucide-react';
 import type { BlogCardProps } from '../../types/blog';
 
 const BlogCard: React.FC<BlogCardProps> = ({ post, animationDelay = 0 }) => {
+  const navigate = useNavigate();
+
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -26,8 +29,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, animationDelay = 0 }) => {
   const categoryInfo = getCategoryInfo(post.category);
 
   const handleClick = () => {
-    // Navigate to blog detail page
-    window.location.href = `/blog/${post.id}`;
+    // Use React Router navigation instead of window.location
+    navigate(`/blog/${post.id}`);
   };
 
   // Use correct images for each category

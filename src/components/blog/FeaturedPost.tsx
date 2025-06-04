@@ -1,9 +1,13 @@
-// src/components/blog/FeaturedPost.tsx
+
+// src/components/blog/FeaturedPost.tsx (Updated with proper routing)
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Calendar, Clock, User, Eye } from 'lucide-react';
 import type { FeaturedPostProps } from '../../types/blog';
 
 const FeaturedPost: React.FC<FeaturedPostProps> = ({ post }) => {
+  const navigate = useNavigate();
+
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -26,8 +30,8 @@ const FeaturedPost: React.FC<FeaturedPostProps> = ({ post }) => {
   const categoryInfo = getCategoryInfo(post.category);
 
   const handleClick = () => {
-    // Navigate to blog detail page
-    window.location.href = `/blog/${post.id}`;
+    // Use React Router navigation instead of window.location
+    navigate(`/blog/${post.id}`);
   };
 
   // Use correct images for each category

@@ -1,10 +1,10 @@
-// App.tsx
-import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom'; // Added useParams to the main import
+// App.tsx - UPDATED
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import Header from './components/Header';     
 import Footer from './components/Footer';     
 import ContactPage from './pages/ContactPage'; 
-import BlogPage from './pages/BlogDetailPage'; // Make sure this points to your blog list component
-import BlogDetailPage from './pages/BlogDetailPage';
+import BlogPage from './pages/BlogDetailPage'; // FIXED: This should point to your blog list component
+import BlogDetailPage from './components/blog/BlogDetailPage'; // FIXED: This should be the detail component
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage'; 
 import ProjectDetailPage from './pages/ProjectDetailPage'; 
@@ -15,7 +15,7 @@ import MemberCompanyDetailPage from './pages/MemberCompanyDetailPage';
 import CareersPage from './pages/CareersPage';
 import CompanyProfilePage from './pages/CompanyProfilePage'; 
 import TechnologyPage from './pages/TechnologyPage';
-import AboutUsPage from './pages/AboutUsPage'; // <<--- IMPORT THE AboutUsPage
+import AboutUsPage from './pages/AboutUsPage';
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
             
             <Route path="/contact" element={<ContactPage />} />
             
-            {/* Blog Routes */}
+            {/* Blog Routes - FIXED */}
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogDetailPage />} />
             
@@ -55,9 +55,8 @@ function App() {
             <Route path="/company-profile/:slug" element={<CompanyProfilePage />} />
             <Route path="/company-profile" element={<CompanyProfilePage />} /> 
 
-            {/* About Us Page Route - UPDATED */}
-            <Route path="/about" element={<AboutUsPage />} /> {/* <<--- CORRECTED ROUTE */}
-
+            {/* About Us Page Route */}
+            <Route path="/about" element={<AboutUsPage />} />
 
             {/* Placeholder Routes for Dynamic Content from Company Profile, etc. */}
             <Route 

@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Search, Filter,  Users, ExternalLink, Github, Target, Clock, CheckCircle } from 'lucide-react';
+import { Search, Filter, Users, ExternalLink, Github, Target, Clock, CheckCircle } from 'lucide-react';
 import type { Project, ProjectStatus } from '../types/project';
 import { projectData, projectTags } from '../assets/data/projectData';
 
@@ -380,12 +380,13 @@ const ProjectsPage: React.FC = () => {
 // Enhanced Project Grid Component with Perfect Centering
 const ProjectGrid: React.FC<{ projects: Project[] }> = ({ projects }) => {
   return (
-    <div className="w-full">
-      {/* Responsive Grid with Perfect Centering */}
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8 justify-items-center max-w-8xl mx-auto">
+    <div className="w-full flex justify-center">
+      {/* Responsive Grid with Perfect Centering and Proper Spacing */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 lg:gap-10 justify-items-center">
         {projects.map((project, index) => (
           <motion.div
             key={project.id}
+            className="w-full max-w-sm"
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.1 }}
@@ -418,7 +419,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   return (
     <Link 
       to={`/projects/${project.id}`}
-      className="block w-full max-w-sm mx-auto rounded-2xl border transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 overflow-hidden group"
+      className="block w-full h-full rounded-2xl border transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 overflow-hidden group"
       style={{
         background: 'linear-gradient(135deg, #1a2332 0%, #242f42 50%, #1e2a3d 100%)',
         borderColor: 'rgba(59, 130, 246, 0.25)'

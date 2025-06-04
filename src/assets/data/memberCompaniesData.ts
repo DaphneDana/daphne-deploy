@@ -2,7 +2,6 @@
 import type { MemberCompany } from '../../types/company'; // Fixed path - should match your actual types file
 
 // Placeholder logo URLs - replace with actual or more diverse placeholders
-const LOGO_PLACEHOLDER_1 = 'https://via.placeholder.com/200x80.png?text=InnovateAI';
 const LOGO_PLACEHOLDER_2 = 'https://via.placeholder.com/150x60.png?text=SynergyML';
 const LOGO_PLACEHOLDER_3 = 'https://via.placeholder.com/150x60.png?text=DataCore';
 
@@ -11,7 +10,7 @@ export const mockMemberCompaniesData: MemberCompany[] = [
     id: 'innovate-ai-solutions',
     slug: 'innovate-ai-solutions',
     name: 'InnovateAI Solutions',
-    logoUrl: LOGO_PLACEHOLDER_1,
+    logoUrl: 'images/LLP.jpeg', // Placeholder logo URL, replace with actual image path
     tagline: 'Pioneering the Future of Intelligent Automation',
     description: 'InnovateAI Solutions is a leading provider of cutting-edge artificial intelligence and machine learning technologies, empowering businesses to optimize operations, enhance customer experiences, and drive unprecedented growth through intelligent automation.',
     mission: 'Our mission is to democratize AI by making advanced machine learning tools accessible and actionable for organizations of all sizes, fostering a future where intelligent technology solves real-world challenges and creates sustainable value.',
@@ -63,7 +62,7 @@ export const mockMemberCompaniesData: MemberCompany[] = [
     id: 'synergy-ml',
     slug: 'synergy-ml',
     name: 'SynergyML',
-    logoUrl: LOGO_PLACEHOLDER_2,
+    logoUrl: '/images/news2.jpeg',
     tagline: 'Collaborative AI Development',
     description: 'SynergyML focuses on collaborative machine learning frameworks.',
     mission: 'To enable secure and private collaborative AI development.',
@@ -95,7 +94,7 @@ export const mockMemberCompaniesData: MemberCompany[] = [
     id: 'datacore-analytics',
     slug: 'datacore-analytics',
     name: 'DataCore Analytics',
-    logoUrl: LOGO_PLACEHOLDER_3,
+    logoUrl: '/images/profile3.jpeg',
     tagline: 'Data-Driven Intelligence',
     description: 'DataCore Analytics specializes in big data processing and analytics solutions.',
     mission: 'Transform raw data into actionable business intelligence.',
