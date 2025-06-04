@@ -1,3 +1,5 @@
+/* src/index.css */
+
 @import "tailwindcss";
 
 
@@ -68,4 +70,43 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* @layer components {
+  .btn {
+    @apply px-6 py-3 rounded-lg font-semibold text-sm tracking-wide transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent shadow-md;
+  }
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 hover:shadow-blue-600/40;
+  }
+  .btn-secondary {
+    @apply bg-gray-700 text-gray-100 hover:bg-gray-600 focus:ring-gray-500 hover:shadow-gray-600/30;
+  }
+  .input-field {
+    @apply block w-full px-4 py-2.5 border border-gray-600 rounded-md shadow-sm bg-gray-800 text-gray-100 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors duration-200;
+  }
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+  .container-mx {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+} */
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .hyphens-auto {
+    hyphens: auto;
+    word-wrap: break-word;
+  }
+
 }

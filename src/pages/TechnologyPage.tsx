@@ -1,9 +1,8 @@
 // src/pages/TechnologyPage.jsx
-import React from 'react';
 // You can use icons from a library like react-icons
 import {
-    FiCpu, FiLock, FiTrendingUp, FiLayers, FiEye, FiChevronsRight, FiZap,
-    FiActivity, FiBarChart2, FiMessageSquare, FiCheckCircle, FiServer, FiShield // Replaced FiBrain with FiActivity
+    FiCpu, FiTrendingUp, FiLayers, FiEye, FiChevronsRight, FiZap,
+    FiActivity, FiBarChart2, FiMessageSquare, FiCheckCircle, FiShield // Replaced FiBrain with FiActivity
 } from 'react-icons/fi';
 
 // Dummy data for AI Projects & Products
