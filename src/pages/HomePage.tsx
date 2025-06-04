@@ -1,14 +1,14 @@
 // src/pages/HomePage.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'; 
-import { motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 import HomeHeroSection from '../components/home/HomeHeroSection';
 import MemberCompanyTeaserCard from '../components/home/MemeberCompanyCard'; 
 import TransformationHighlightCard from '../components/home/TransformationCard';
-import type  { TransformationHighlight } from '../components/home/TransformationCard'; 
+import type { TransformationHighlight } from '../components/home/TransformationCard'; 
 import InsightSnippetCard from '../components/home/InsightCard';
 import TrustPillarCard from '../components/home/TrustPillarCard';
-import { Target, Users, Zap, Rss, Shield, ArrowRight } from 'lucide-react';
+import { Target, Users, Zap, Rss, Shield, ArrowRight, Sparkles } from 'lucide-react';
 
 const mockMemberTeasers = [
   { slug: 'innovate-ai-solutions', name: 'InnovateAI Solutions', logoUrl: 'https://via.placeholder.com/180x70/FFFFFF/111827?text=InnovateAI', shortDescription: 'Pioneering advanced AI for enterprise automation and efficiency.' },
@@ -36,14 +36,84 @@ const mockTrustPillars = [
   { iconName: 'Scale', title: 'Accountability & Fairness', description: 'Ensuring our AI systems are fair, unbiased, and accountable for their impact.' },
 ];
 
-const SectionTitle: React.FC<{ title: string, subtitle?: string, Icon?: React.ElementType, textAlignment?: 'text-center' | 'text-left' }> = 
-  ({ title, subtitle, Icon, textAlignment = 'text-center' }) => (
-  <div className={`mb-10 md:mb-12 ${textAlignment}`}>
-    {Icon && <Icon size={36} className={`text-primary ${textAlignment === 'text-center' ? 'mx-auto' : ''} mb-4`} />}
-    <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-text-heading-dark leading-tight">{title}</h2>
-    {subtitle && <p className={`text-lg text-text-muted-dark mt-3 max-w-2xl ${textAlignment === 'text-center' ? 'mx-auto' : ''}`}>{subtitle}</p>}
+// Enhanced Section Title Component
+const SectionTitle: React.FC<{ 
+  title: string; 
+  subtitle?: string; 
+  Icon?: React.ElementType; 
+  textAlignment?: 'text-center' | 'text-left';
+  badge?: string;
+}> = ({ title, subtitle, Icon, textAlignment = 'text-center', badge }) => (
+  <div className={`mb-12 lg:mb-16 ${textAlignment}`}>
+    {/* Badge */}
+    {badge && (
+      <div className={`inline-flex items-center px-4 py-2 mb-6 bg-blue-500/10 border border-blue-500/20 rounded-full backdrop-blur-sm ${textAlignment === 'text-center' ? 'mx-auto' : ''}`}>
+        <Sparkles size={16} className="text-blue-400 mr-2" />
+        <span className="text-sm text-blue-300 font-medium">{badge}</span>
+      </div>
+    )}
+    
+    {/* Icon */}
+    {Icon && (
+      <div className={`relative inline-block mb-6 ${textAlignment === 'text-center' ? 'mx-auto' : ''}`}>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-xl" />
+        <div className="relative p-4 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full border border-blue-500/20 backdrop-blur-sm">
+          <Icon size={36} className="text-blue-400" />
+        </div>
+      </div>
+    )}
+    
+    {/* Title */}
+    <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight mb-4">
+      {title}
+    </h2>
+    
+    {/* Subtitle */}
+    {subtitle && (
+      <p className={`text-lg sm:text-xl text-gray-300 leading-relaxed max-w-3xl ${textAlignment === 'text-center' ? 'mx-auto' : ''}`}>
+        {subtitle}
+      </p>
+    )}
   </div>
 );
+
+// Section Wrapper Component for consistent styling
+const SectionWrapper: React.FC<{ 
+  children: React.ReactNode; 
+  className?: string;
+  variant?: 'primary' | 'secondary' | 'accent';
+}> = ({ children, className = '', variant = 'primary' }) => {
+  const getBackgroundStyle = () => {
+    switch (variant) {
+      case 'primary':
+        return 'linear-gradient(135deg, #0f1a2e 0%, #1e2a3d 50%, #0a0f1c 100%)';
+      case 'secondary':
+        return 'linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1a2e 100%)';
+      case 'accent':
+        return 'linear-gradient(135deg, #1a2332 0%, #2a3441 50%, #1e2a3d 100%)';
+      default:
+        return 'linear-gradient(135deg, #0f1a2e 0%, #1e2a3d 50%, #0a0f1c 100%)';
+    }
+  };
+
+  return (
+    <section 
+      className={`relative py-16 sm:py-20 lg:py-24 overflow-hidden ${className}`}
+      style={{ background: getBackgroundStyle() }}
+    >
+      {/* Background Elements */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+      </div>
+      
+      {/* Content */}
+      <div className="container-mx relative z-10">
+        {children}
+      </div>
+    </section>
+  );
+};
 
 const HomePage: React.FC = () => {
   useEffect(() => {
@@ -52,209 +122,346 @@ const HomePage: React.FC = () => {
   }, []);
 
   const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] } 
+      transition: { 
+        duration: 0.8, 
+        ease: [0.6, -0.05, 0.01, 0.99],
+        staggerChildren: 0.1 
+      } 
     }
   };
 
-  const transformationSectionRef = useRef(null);
-
   return (
-    <div className="bg-section-deep-blue text-text-main-dark overflow-x-hidden"> {/* Main page background */}
+    <div className="text-white overflow-x-hidden" style={{
+      background: 'linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1a2e 100%)',
+      minHeight: '100vh'
+    }}>
+      {/* Hero Section */}
       <HomeHeroSection />
 
-      {/* Who We Are (LLP Overview) */}
-      <motion.section 
-        className="section-padding bg-slate-900" // Using defined padding
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <div className="container-mx">
-          <SectionTitle 
-            Icon={Target}
-            title="The Heart of AI Advancement in Africa"
-            subtitle="LLP is a dynamic consortium orchestrating a collaborative ecosystem to accelerate AI development, foster innovation, and cultivate world-class talent across the continent."
-          />
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-base md:text-lg text-text-muted-dark leading-relaxed mb-10 hyphens-auto">
-              We bridge the gap between groundbreaking research and real-world application, empowering our member companies and partners to leverage the transformative power of Artificial Intelligence and Machine Learning. Our focus is on building sustainable, ethical, and impactful AI solutions that drive progress and create opportunities.
-            </p>
-            <Link
-              to="/company-profile/llp-innovations" 
-              className="btn btn-secondary px-8 py-3 text-base rounded-lg inline-flex items-center group"
-            >
-              Learn More About LLP <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+      {/* Who We Are Section */}
+      <SectionWrapper variant="primary">
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
+              {/* Left Side - Content */}
+              <motion.div
+                className="max-w-2xl mx-auto lg:mx-0 space-y-6 lg:space-y-8"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                {/* Badge */}
+                <div className="inline-flex items-center px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full backdrop-blur-sm">
+                  <Target size={16} className="text-blue-400 mr-2" />
+                  <span className="text-sm text-blue-300 font-medium">Who We Are</span>
+                </div>
+                
+                {/* Main Title */}
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1]">
+                  The Heart of AI Advancement in{' '}
+                  <span className="bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
+                    Africa
+                  </span>
+                </h2>
+                
+                {/* Subtitle */}
+                <p className="text-lg sm:text-xl text-blue-200 leading-relaxed">
+                  LLP is a dynamic consortium orchestrating a collaborative ecosystem to accelerate AI development, foster innovation, and cultivate world-class talent across the continent.
+                </p>
+                
+                {/* Description */}
+                <p className="text-base text-gray-300 leading-relaxed">
+                  We bridge the gap between groundbreaking research and real-world application, empowering our member companies and partners to leverage the transformative power of Artificial Intelligence and Machine Learning. Our focus is on building sustainable, ethical, and impactful AI solutions that drive progress and create opportunities.
+                </p>
+                
+                {/* Stats Row */}
+                <div className="grid grid-cols-3 gap-4 sm:gap-6 py-4">
+                  {[
+                    { number: "50+", label: "AI Projects" },
+                    { number: "200+", label: "Professionals" },
+                    { number: "5M+", label: "Lives Impacted" }
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      className="text-center p-3 sm:p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <div className="text-xl sm:text-2xl font-bold text-blue-300 mb-1">
+                        {stat.number}
+                      </div>
+                      <div className="text-xs sm:text-sm text-gray-400">
+                        {stat.label}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                {/* CTA Button */}
+                <div className="pt-2">
+                  <Link
+                    to="/company-profile/llp-innovations" 
+                    className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl group"
+                  >
+                    Learn More About LLP 
+                    <ArrowRight size={20} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </motion.div>
+
+              {/* Right Side - Image */}
+              <motion.div
+                className="relative max-w-2xl mx-auto lg:mx-0 lg:order-2"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <div className="relative">
+                  {/* Background decorative elements */}
+                  <div className="absolute -top-6 -left-6 w-20 h-20 sm:w-24 sm:h-24 bg-blue-500/20 rounded-full blur-2xl" />
+                  <div className="absolute -bottom-6 -right-6 w-24 h-24 sm:w-32 sm:h-32 bg-purple-500/20 rounded-full blur-2xl" />
+                  
+                  {/* Main image container */}
+                  <div className="relative overflow-hidden rounded-2xl border border-blue-500/20 group shadow-2xl">
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src="/images/LLP.jpeg"
+                        alt="LLP - Leading AI Innovation in Africa"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    
+                    {/* Image overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    {/* Floating badge */}
+                    <div className="absolute top-4 left-4 px-3 py-1 bg-blue-500/90 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
+                      Innovation Hub
+                    </div>
+                  </div>
+                  
+                  {/* Decorative border glow */}
+                  <div className="absolute inset-0 rounded-2xl border border-blue-400/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                </div>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </motion.section>
-      <div className="container-mx section-separator"></div>
+        </motion.div>
+      </SectionWrapper>
 
-
-      {/* Our Ecosystem (Member Companies) */}
-      <motion.section 
-        className="section-padding bg-slate-900" // Same background, separation handled by separator
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-      >
-        <div className="container-mx">
+      {/* Our Ecosystem Section */}
+      <SectionWrapper variant="secondary">
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           <SectionTitle 
             Icon={Users}
+            badge="Our Network"
             title="Our Vibrant Ecosystem"
             subtitle="A collaborative network of innovative companies driving the AI frontier."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {mockMemberTeasers.map((company, index) => (
-              <MemberCompanyTeaserCard key={company.slug} company={company} index={index} />
-            ))}
+          
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+              {mockMemberTeasers.map((company, index) => (
+                <motion.div
+                  key={company.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <MemberCompanyTeaserCard company={company} index={index} />
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="text-center">
+              <Link
+                to="/member-companies"
+                className="inline-flex items-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 backdrop-blur-sm transition-all duration-300 transform hover:scale-105 shadow-lg group"
+              >
+                Explore All Member Companies 
+                <ArrowRight size={20} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
-          <div className="text-center mt-12">
-            <Link
-              to="/member-companies"
-              className="btn btn-primary px-8 py-3 text-base rounded-lg inline-flex items-center group"
-            >
-              Explore All Member Companies <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
-        </div>
-      </motion.section>
-      <div className="container-mx section-separator"></div>
+        </motion.div>
+      </SectionWrapper>
 
-
-      {/* Driving Digital Transformation */}
-      <motion.section 
-        ref={transformationSectionRef}
-        className="section-padding bg-slate-900"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-      >
-        <div className="container-mx">
+      {/* Digital Transformation Section */}
+      <SectionWrapper variant="accent">
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           <SectionTitle 
             Icon={Zap}
+            badge="Digital Innovation"
             title="Driving Africa's Digital Transformation"
             subtitle="LLP empowers businesses and societies by unlocking the potential of AI across key sectors."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {mockTransformationHighlights.map((highlight, index) => (
-              <TransformationHighlightCard 
-                key={index} 
-                highlight={highlight} 
-                index={index} 
-              />
-            ))}
+          
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              {mockTransformationHighlights.map((highlight, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <TransformationHighlightCard highlight={highlight} index={index} />
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </motion.section>
-      <div className="container-mx section-separator"></div>
+        </motion.div>
+      </SectionWrapper>
 
-
-      {/* Latest Insights & Updates */}
-      <motion.section 
-        className="section-padding bg-slate-900"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-      >
-         <div className="container-mx">
+      {/* Latest Insights Section */}
+      <SectionWrapper variant="primary">
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           <SectionTitle 
             Icon={Rss}
+            badge="Stay Updated"
             title="Latest Insights & Updates"
             subtitle="Stay informed with our latest news, research breakthroughs, and thought leadership."
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {mockInsightSnippets.map((insight, index) => (
-              <InsightSnippetCard key={insight.slug} insight={insight} index={index} />
-            ))}
+          
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+              {mockInsightSnippets.map((insight, index) => (
+                <motion.div
+                  key={insight.slug}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <InsightSnippetCard insight={insight} index={index} />
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="text-center">
+              <Link
+                to="/latest-news"
+                className="inline-flex items-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 backdrop-blur-sm transition-all duration-300 transform hover:scale-105 shadow-lg group"
+              >
+                View All News & Articles 
+                <ArrowRight size={20} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
-          <div className="text-center mt-12">
-            <Link
-              to="/latest-news"
-              className="btn btn-secondary px-8 py-3 text-base rounded-lg inline-flex items-center group"
-            >
-              View All News & Articles <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
-        </div>
-      </motion.section>
-      <div className="container-mx section-separator"></div>
+        </motion.div>
+      </SectionWrapper>
 
-
-       {/* Building Trust in AI */}
-       <motion.section 
-        className="section-padding bg-slate-900"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-      >
-         <div className="container-mx">
+      {/* Trust in AI Section */}
+      <SectionWrapper variant="secondary">
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           <SectionTitle 
             Icon={Shield}
+            badge="Our Commitment"
             title="Building Trust in Artificial Intelligence"
             subtitle="Our commitment to ethical, responsible, and transparent AI development is unwavering."
           />
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
-                {mockTrustPillars.map((pillar, index) => (
-                <TrustPillarCard key={index} pillar={pillar} index={index} />
-                ))}
-            </div>
-            <div className="text-center mt-12">
-                <Link
-                to="/company-profile/llp-innovations#ethics" 
-                className="font-medium inline-flex items-center group text-primary hover:text-primary-light"
+          
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+              {mockTrustPillars.map((pillar, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                Learn About Our Ethical Framework <ArrowRight size={16} className="ml-1.5 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
+                  <TrustPillarCard pillar={pillar} index={index} />
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="text-center">
+              <Link
+                to="/company-profile/llp-innovations#ethics"
+                className="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium transition-colors group"
+              >
+                Learn About Our Ethical Framework 
+                <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
           </div>
-        </div>
-      </motion.section>
-      <div className="container-mx section-separator"></div>
+        </motion.div>
+      </SectionWrapper>
 
-
-      {/* Final Call to Action Section */}
-      <motion.section 
-        className="py-20 md:py-28 bg-gradient-to-r from-primary via-primary-dark to-blue-700 text-white" /* Distinct background */
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+      {/* Final CTA Section */}
+      <SectionWrapper 
+        variant="accent" 
+        className="border-t border-blue-500/20"
       >
-        <div className="container-mx text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-            Ready to Transform Your Future with AI?
-          </h2>
-          <p className="text-lg md:text-xl text-blue-100/90 max-w-2xl mx-auto mb-10">
-            Whether you're looking to innovate, partner, or build your career in AI, LLP is your gateway to excellence.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
-            <Link
-              to="/contact"
-              className="btn bg-white text-primary hover:bg-slate-100 px-10 py-3.5 text-lg rounded-lg shadow-xl"
-            >
-              Get in Touch
-            </Link>
-            <Link
-              to="/careers"
-              className="btn border-2 border-white text-white hover:bg-white hover:text-primary px-10 py-3.5 text-lg rounded-lg shadow-xl"
-            >
-              Explore Careers
-            </Link>
+        <motion.div
+          className="text-center"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+              Ready to Transform Your Future with AI?
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-300 mb-12 leading-relaxed">
+              Whether you're looking to innovate, partner, or build your career in AI, LLP is your gateway to excellence.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <Link
+                to="/contact"
+                className="inline-flex items-center px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
+              >
+                Get in Touch
+              </Link>
+              <Link
+                to="/careers"
+                className="inline-flex items-center px-10 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border-2 border-white/30 backdrop-blur-sm transition-all duration-300 transform hover:scale-105 shadow-xl"
+              >
+                Explore Careers
+              </Link>
+            </div>
           </div>
-        </div>
-      </motion.section>
-
+        </motion.div>
+      </SectionWrapper>
     </div>
   );
 };
