@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-neutral-darkest text-neutral-light">
+    <footer className="bg-slate-900 text-neutral-light">
       <div className="container-mx section-padding pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Column 1: Logo & About */}
