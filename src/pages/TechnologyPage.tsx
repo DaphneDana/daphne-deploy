@@ -1,4 +1,4 @@
-// src/pages/TechnologyPage.tsx - MODERN REDESIGN
+// src/pages/TechnologyPage.tsx - ENHANCED RESPONSIVENESS
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -17,27 +17,27 @@ import {
   ArrowRight, BrainCircuit, Database, CloudCog, MonitorSmartphone 
 } from 'lucide-react';
 
-// Reusable Section Title Component
+// Reusable Section Title Component - ENHANCED RESPONSIVENESS
 const SectionTitle: React.FC<{ 
   title: string, 
   subtitle?: string, 
   Icon?: React.ElementType, 
   textAlignment?: 'text-center' | 'text-left' 
 }> = ({ title, subtitle, Icon, textAlignment = 'text-center' }) => (
-  <div className={`mb-16 ${textAlignment}`}>
+  <div className={`mb-12 sm:mb-14 md:mb-16 ${textAlignment}`}>
     {Icon && (
       <motion.div
-        className={`mb-6 ${textAlignment === 'text-center' ? 'flex justify-center' : ''}`}
+        className={`mb-4 sm:mb-5 md:mb-6 ${textAlignment === 'text-center' ? 'flex justify-center' : ''}`}
         whileHover={{ scale: 1.1, rotate: 5 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center">
-          <Icon size={32} className="text-blue-400" />
+        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center">
+          <Icon size={24} className="text-blue-400 sm:w-7 sm:h-7 md:w-8 md:h-8" />
         </div>
       </motion.div>
     )}
     <h2 
-      className="text-4xl md:text-5xl font-bold mb-4 leading-tight"
+      className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 leading-tight"
       style={{
         background: 'linear-gradient(135deg, #4096ff, #52c4ff)',
         WebkitBackgroundClip: 'text',
@@ -48,7 +48,7 @@ const SectionTitle: React.FC<{
       {title}
     </h2>
     {subtitle && (
-      <p className={`text-xl text-gray-300 max-w-3xl leading-relaxed ${textAlignment === 'text-center' ? 'mx-auto' : ''}`}>
+      <p className={`text-lg sm:text-xl max-w-3xl leading-relaxed text-gray-300 ${textAlignment === 'text-center' ? 'mx-auto' : ''}`}>
         {subtitle}
       </p>
     )}
@@ -121,7 +121,7 @@ const TechnologyPage: React.FC = () => {
       {/* AI Solutions Section */}
       <motion.section 
         id="ai-solutions-section"
-        className="py-16 md:py-24 relative"
+        className="py-12 sm:py-16 md:py-20 lg:py-24 relative"
         style={{
           background: 'linear-gradient(135deg, #0f1a2e 0%, #1a2332 50%, #0a0f1c 100%)'
         }}
@@ -132,7 +132,7 @@ const TechnologyPage: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle Icon={Bot} title={aiSolutions.title} subtitle={aiSolutions.subtitle} />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7 md:gap-8">
             {aiSolutions.items.map((solution, index) => (
               <AiSolutionCard key={solution.id} solution={solution} index={index} />
             ))}
@@ -142,7 +142,7 @@ const TechnologyPage: React.FC = () => {
 
       {/* Technical Trust Section */}
       <motion.section 
-        className="py-16 md:py-24 relative"
+        className="py-12 sm:py-16 md:py-20 lg:py-24 relative"
         style={{
           background: 'linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1a2e 100%)'
         }}
@@ -153,7 +153,7 @@ const TechnologyPage: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle Icon={ShieldCheck} title={technicalTrust.title} subtitle={technicalTrust.subtitle} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7 md:gap-8">
             {technicalTrust.pillars.map((pillar, index) => (
               <TechPillarCard key={index} pillar={pillar} index={index} />
             ))}
@@ -163,7 +163,7 @@ const TechnologyPage: React.FC = () => {
 
       {/* Tech Stack Section */}
       <motion.section 
-        className="py-16 md:py-24 relative"
+        className="py-12 sm:py-16 md:py-20 lg:py-24 relative"
         style={{
           background: 'linear-gradient(135deg, #0f1a2e 0%, #1a2332 50%, #0a0f1c 100%)'
         }}
@@ -176,27 +176,27 @@ const TechnologyPage: React.FC = () => {
           <SectionTitle Icon={LayersIcon} title={techStack.title} subtitle={techStack.subtitle} />
           {techStack.introduction && (
             <motion.div
-              className="max-w-4xl mx-auto mb-16"
+              className="max-w-4xl mx-auto mb-12 sm:mb-14 md:mb-16"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
               <div 
-                className="rounded-xl p-6 md:p-8 border text-center"
+                className="rounded-xl p-4 sm:p-6 md:p-8 border text-center"
                 style={{
                   background: 'rgba(26, 35, 50, 0.6)',
                   borderColor: 'rgba(64, 150, 255, 0.2)'
                 }}
               >
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                   {techStack.introduction}
                 </p>
               </div>
             </motion.div>
           )}
           
-          <div className="space-y-16">
+          <div className="space-y-12 sm:space-y-14 md:space-y-16">
             {techStack.categories.map((category, categoryIndex) => {
               const CategoryIcon = category.iconName ? (pageIconMap[category.iconName] || pageIconMap.DefaultSectionIcon) : null;
               return (
@@ -208,25 +208,29 @@ const TechnologyPage: React.FC = () => {
                   viewport={{ once: true, amount: 0.1 }}
                   transition={{ delay: categoryIndex * 0.1 }}
                 >
-                  <div className="flex items-center justify-center mb-8">
+                  <div className="flex flex-col sm:flex-row items-center justify-center mb-6 sm:mb-8 text-center sm:text-left">
                     {CategoryIcon && (
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center mr-4">
-                        <CategoryIcon size={24} className="text-blue-400"/>
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center mb-3 sm:mb-0 sm:mr-4">
+                        <CategoryIcon size={20} className="text-blue-400 sm:w-6 sm:h-6"/>
                       </div>
                     )}
-                    <h3 className="text-2xl md:text-3xl font-semibold text-blue-300">{category.name}</h3>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-blue-300">{category.name}</h3>
                   </div>
-                  <motion.div 
-                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
-                    variants={staggeredListVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                  >
-                    {category.technologies.map((tech, techIndex) => (
-                      <TechStackIcon key={tech.name} tech={tech} index={techIndex} />
-                    ))}
-                  </motion.div>
+                  
+                  {/* Centered container for tech stack items */}
+                  <div className="flex justify-center">
+                    <motion.div 
+                      className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-3 sm:gap-4 max-w-6xl"
+                      variants={staggeredListVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.1 }}
+                    >
+                      {category.technologies.map((tech, techIndex) => (
+                        <TechStackIcon key={tech.name} tech={tech} index={techIndex} />
+                      ))}
+                    </motion.div>
+                  </div>
                 </motion.div>
               );
             })}
@@ -236,7 +240,7 @@ const TechnologyPage: React.FC = () => {
 
       {/* DevOps & MLOps Culture Section */}
       <motion.section 
-        className="py-16 md:py-24 relative"
+        className="py-12 sm:py-16 md:py-20 lg:py-24 relative"
         style={{
           background: 'linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1a2e 100%)'
         }}
@@ -249,20 +253,20 @@ const TechnologyPage: React.FC = () => {
           <SectionTitle Icon={Settings2} title={devOpsCulture.title} subtitle={devOpsCulture.subtitle} />
           
           <motion.div 
-            className="max-w-4xl mx-auto mb-16"
+            className="max-w-4xl mx-auto mb-12 sm:mb-14 md:mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <div 
-              className="rounded-xl p-6 md:p-8 border"
+              className="rounded-xl p-4 sm:p-6 md:p-8 border"
               style={{
                 background: 'rgba(26, 35, 50, 0.6)',
                 borderColor: 'rgba(64, 150, 255, 0.2)'
               }}
             >
-              <div className="space-y-4 text-gray-300 leading-relaxed text-center">
+              <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-gray-300 leading-relaxed text-center">
                 {devOpsCulture.descriptionParagraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -270,13 +274,13 @@ const TechnologyPage: React.FC = () => {
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7 md:gap-8">
             {devOpsCulture.keyAspects.map((aspect) => {
               const AspectIcon = pageIconMap[aspect.iconName] || pageIconMap.DefaultSectionIcon;
               return (
                 <motion.div 
                   key={aspect.title} 
-                  className="rounded-2xl p-6 border transition-all duration-300 hover:transform hover:-translate-y-1 relative overflow-hidden group"
+                  className="rounded-2xl p-4 sm:p-5 md:p-6 border transition-all duration-300 hover:transform hover:-translate-y-1 relative overflow-hidden group"
                   style={{
                     background: 'rgba(26, 35, 50, 0.7)',
                     borderColor: 'rgba(64, 150, 255, 0.25)',
@@ -298,20 +302,21 @@ const TechnologyPage: React.FC = () => {
                     style={{ background: 'linear-gradient(90deg, transparent, #4096ff, transparent)' }}
                   ></div>
 
-                  <div className="flex items-start gap-4">
+                  <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ duration: 0.3 }}
+                      className="flex-shrink-0"
                     >
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
-                        <AspectIcon size={24} className="text-blue-400"/>
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center">
+                        <AspectIcon size={20} className="text-blue-400 sm:w-6 sm:h-6"/>
                       </div>
                     </motion.div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-semibold text-blue-300 mb-2 group-hover:text-blue-200 transition-colors">
+                      <h4 className="text-base sm:text-lg font-semibold text-blue-300 mb-1 sm:mb-2 group-hover:text-blue-200 transition-colors">
                         {aspect.title}
                       </h4>
-                      <p className="text-gray-300 leading-relaxed">
+                      <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                         {aspect.description}
                       </p>
                     </div>
@@ -326,7 +331,7 @@ const TechnologyPage: React.FC = () => {
       {/* Digital Transformation Achievements Section */}
       {digitalTransformationAchievements && digitalTransformationAchievements.items.length > 0 && (
         <motion.section
-          className="py-16 md:py-24 relative"
+          className="py-12 sm:py-16 md:py-20 lg:py-24 relative"
           style={{
             background: 'linear-gradient(135deg, #0f1a2e 0%, #1a2332 50%, #0a0f1c 100%)'
           }}
@@ -337,7 +342,7 @@ const TechnologyPage: React.FC = () => {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionTitle Icon={Zap} title={digitalTransformationAchievements.title} subtitle={digitalTransformationAchievements.subtitle} />
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-10 md:space-y-12">
               {digitalTransformationAchievements.items.map((achievement, index) => (
                 <DTAchievementCard 
                   key={achievement.id} 
@@ -353,7 +358,7 @@ const TechnologyPage: React.FC = () => {
 
       {/* DX Showcase Section */}
       <motion.section 
-        className="py-16 md:py-24 relative"
+        className="py-12 sm:py-16 md:py-20 lg:py-24 relative"
         style={{
           background: 'linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1a2e 100%)'
         }}
@@ -364,7 +369,7 @@ const TechnologyPage: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle Icon={Palette} title={dxShowcase.title} subtitle={dxShowcase.subtitle} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7 md:gap-8 mb-12 sm:mb-14 md:mb-16">
             {dxShowcase.items.map((caseItem, index) => (
               <DXCaseCard key={caseItem.id} caseItem={caseItem} index={index} />
             ))}
@@ -374,20 +379,23 @@ const TechnologyPage: React.FC = () => {
             <div className="text-center">
               <Link
                 to={dxShowcase.cta.link}
-                className="inline-flex items-center gap-2 px-8 py-4 font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-lg group"
+                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 font-semibold text-slate-900 transition-all duration-300 hover:scale-105 hover:shadow-lg rounded-lg group text-sm sm:text-base border-2"
                 style={{
-                  background: 'linear-gradient(135deg, #4096ff, #52c4ff)',
-                  boxShadow: '0 4px 15px rgba(64, 150, 255, 0.3)'
+                  background: 'linear-gradient(135deg, #60a5fa, #34d399)',
+                  borderColor: 'rgba(96, 165, 250, 0.5)',
+                  boxShadow: '0 4px 15px rgba(96, 165, 250, 0.3)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(64, 150, 255, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(96, 165, 250, 0.4)';
+                  e.currentTarget.style.transform = 'scale(1.05)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(64, 150, 255, 0.3)';
+                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(96, 165, 250, 0.3)';
+                  e.currentTarget.style.transform = 'scale(1)';
                 }}
               >
                 {dxShowcase.cta.text}
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           )}
